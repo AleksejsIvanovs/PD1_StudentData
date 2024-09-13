@@ -12,4 +12,11 @@
     <StudentId>211112FDD</StudentId>
     <StudentGroup>2</StudentGroup>
   </Student>
+  <Student>
+    <StudentName>Alex</StudentName>
+    <StudentSurname>Nilson</StudentSurname>
+    <StudentId>434sq</StudentId>
+    <StudentGroup>3</StudentGroup>
+    <Email>asas@gmail.com</Email>
+  </Student>
 </ArrayOfStudent>

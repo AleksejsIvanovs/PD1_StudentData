@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.IO;
+using System.Text.RegularExpressions;
 using ClassLibraryLab1;
 namespace Lab1WDF
 {
@@ -16,8 +17,13 @@ namespace Lab1WDF
             txtStudentsOutput.Clear();
             foreach (var student in studentsData.Students)
             { 
-                txtStudentsOutput.AppendText($"Student_Id: {student.StudentId} Student_Name: {student.StudentName} Student_Surname: {student.StudentSurname} Student_Group: {student.StudentGroup}\n");
+                txtStudentsOutput.AppendText($"Student_Id: {student.StudentId} Student_Name: {student.StudentName} Student_Surname: {student.StudentSurname} Student_Group: {student.StudentGroup} Email: {student.Email}\n");
             }
+        }
+        private bool IsValidEmail(string email)
+        {
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, emailPattern);
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -25,14 +31,22 @@ namespace Lab1WDF
             string surname = txtStudentSurname.Text;
             string group = txtStudentGroup.Text;
             string id = txtStudentId.Text;
+            string email = txtStudentEmail.Text;
 
-            Student newStudent = new Student(name, surname, id, group);
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Please enter a valid email address.");
+                return;
+            }
+
+            Student newStudent = new Student(name, surname, id, group, email);
             studentsData.Add(newStudent);
 
             txtStudentName.Text = "";
             txtStudentSurname.Text = "";
             txtStudentId.Text = "";
             txtStudentGroup.Text = "";
+            txtStudentEmail.Text = "";
 
             UpdateOutput();
         }
